@@ -27,8 +27,8 @@ class LeafNode(HTMLNode):
 
 class ParentNode(HTMLNode):
     def __init__(self, tag=None, value=None, children=None, props=None) -> None:
-        # if children == None:
-        #     raise ValueError("Children property is required")
+        if children == None:
+            raise ValueError("Children property is required")
         super().__init__(tag=tag, value=None, children=children, props=props)
     
     def to_html(self):
