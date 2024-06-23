@@ -38,20 +38,3 @@ def text_node_to_html_node(text_node):
         case _:
             raise Exception('wrong type')
         
-def split_nodes_delimiter(old_nodes, delimiter, text_type):
-    result = []
-    for node in old_nodes:
-        if not isinstance(node, TextNode):
-            result.append(node)
-            continue
-
-        if node.text.count(delimiter) % 2 != 0:
-            raise Exception('Markdown: unmatched delimiter')
-        parts = node.text.split(delimiter)
-        for index, value in enumerate(parts):
-            if index % 2 == 0:
-                result.append(TextNode(value, node.text_type))
-            else:
-                result.append(TextNode(value, text_type))
-
-    return result
