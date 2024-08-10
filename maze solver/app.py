@@ -5,7 +5,7 @@ from Cell import Cell
 
 point_a = Point(10,10)
 point_b = Point(50, 50)
-cell = Cell(point_a, point_b)
 win = Window(800, 600)
-cell.draw(win)
+cell = Cell(point_a, point_b, win)
+cell.draw()
 win.wait_for_close()
