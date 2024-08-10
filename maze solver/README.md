@@ -1,0 +1,2 @@
+## Todo:
+- Colors enum
