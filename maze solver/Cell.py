@@ -19,26 +19,30 @@ class Cell:
     def draw(self, x1: Optional[int] = None, y1: Optional[int] = None, x2: Optional[int] = None, y2: Optional[int] = None) -> None:
         if self._win is None:
             return
-        if self.has_top_wall:
-            start_point = Point(x1, y1) if x1 and y1 else Point(self._x1, self._y1)
-            end_point = Point(x2, y1) if x2 and y1 else Point(self._x2, self._y1)
-            top_line = Line(start_point, end_point)
-            self._win.draw_line(top_line, Colors.BLACK.value)
-        if self.has_right_wall:
-            start_point = Point(x2, y1) if x2 and y1 else Point(self._x2, self._y1)
-            end_point = Point(x2, y2) if x2 and y2 else Point(self._x2, self._y2)
-            left_line = Line(start_point, end_point)
-            self._win.draw_line(left_line, Colors.BLACK.value)
-        if self.has_bottom_wall:
-            start_point = Point(x1, y2) if x1 and y2 else Point(self._x1, self._y2)
-            end_point = Point(x2, y2) if x2 and y2 else Point(self._x2, self._y2)
-            bottom_line = Line(start_point, end_point)
-            self._win.draw_line(bottom_line, Colors.BLACK.value)
-        if self.has_left_wall:
-            start_point = Point(x1, y1) if x1 and y1 else Point(self._x1, self._y1)
-            end_point = Point(x1, y2) if x1 and y2 else Point(self._x1, self._y2)
-            left_line = Line(start_point, end_point)
-            self._win.draw_line(left_line, Colors.BLACK.value)
+
+        start_point = Point(x1, y1) if x1 and y1 else Point(self._x1, self._y1)
+        end_point = Point(x2, y1) if x2 and y1 else Point(self._x2, self._y1)
+        top_line = Line(start_point, end_point)
+        color = Colors.BLACK.value if self.has_top_wall else Colors.WHITE.value
+        self._win.draw_line(top_line, color)
+
+        start_point = Point(x2, y1) if x2 and y1 else Point(self._x2, self._y1)
+        end_point = Point(x2, y2) if x2 and y2 else Point(self._x2, self._y2)
+        left_line = Line(start_point, end_point)
+        color = Colors.BLACK.value if self.has_right_wall else Colors.WHITE.value
+        self._win.draw_line(left_line, color)
+
+        start_point = Point(x1, y2) if x1 and y2 else Point(self._x1, self._y2)
+        end_point = Point(x2, y2) if x2 and y2 else Point(self._x2, self._y2)
+        bottom_line = Line(start_point, end_point)
+        color = Colors.BLACK.value if self.has_bottom_wall else Colors.WHITE.value
+        self._win.draw_line(bottom_line, color)
+
+        start_point = Point(x1, y1) if x1 and y1 else Point(self._x1, self._y1)
+        end_point = Point(x1, y2) if x1 and y2 else Point(self._x1, self._y2)
+        left_line = Line(start_point, end_point)
+        color = Colors.BLACK.value if self.has_left_wall else Colors.WHITE.value
+        self._win.draw_line(left_line, color)
 
     def draw_move(self, to_cell: Self, undo: bool=False) -> None:
         color = Colors.GRAY.value if undo else Colors.RED.value

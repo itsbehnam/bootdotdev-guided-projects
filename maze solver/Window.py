@@ -1,5 +1,6 @@
 from tkinter import Tk, BOTH, Canvas
 from Line import Line
+from Colors import Colors
 
 class Window:
     def __init__(self, width, height) -> None:
@@ -8,7 +9,7 @@ class Window:
         self.__root = Tk()
         self.__root.title("Root widget")
         self.__root.protocol('WM_DELETE_WINDOW', self.close)
-        self.__canvas = Canvas(height=height, width=width)
+        self.__canvas = Canvas(bg=Colors.BG.value, height=height, width=width)
         self.__canvas.pack()
         self.__is_running = False
 
