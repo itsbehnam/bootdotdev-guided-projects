@@ -2,10 +2,19 @@ from Window import Window
 from Point import Point
 from Line import Line
 from Cell import Cell
+from Maze import Maze
 
-point_a = Point(10,10)
-point_b = Point(50, 50)
-win = Window(800, 600)
-cell = Cell(point_a, point_b, win)
-cell.draw()
-win.wait_for_close()
+def main():
+    num_rows = 12
+    num_cols = 16
+    margin = 50
+    screen_x = 800
+    screen_y = 600
+    cell_size_x = (screen_x - 2 * margin - 1) / num_cols
+    cell_size_y = (screen_y - 2 * margin - 1) / num_rows
+    win = Window(screen_x, screen_y)
+
+    maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
+    win.wait_for_close()
+
+main()

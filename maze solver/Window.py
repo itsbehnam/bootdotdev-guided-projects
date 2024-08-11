@@ -8,7 +8,7 @@ class Window:
         self.__root = Tk()
         self.__root.title("Root widget")
         self.__root.protocol('WM_DELETE_WINDOW', self.close)
-        self.__canvas = Canvas()
+        self.__canvas = Canvas(height=height, width=width)
         self.__canvas.pack()
         self.__is_running = False
 
