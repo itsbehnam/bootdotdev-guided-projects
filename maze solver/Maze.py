@@ -47,14 +47,19 @@ class Maze:
         end_x = start_x + self.cell_size_x
         start_y = self.y1 + J * self.cell_size_y
         end_y = start_y + self.cell_size_y
-        self._cells[I][J].draw(start_x, start_y, end_x, end_y)
+        cell = self._cells[I][J]
+        cell._x1 = start_x
+        cell._x2 = end_x
+        cell._y1 = start_y
+        cell._y2 = end_y
+        cell.draw()
         if self.win:
             self._animate()
 
     def _animate(self) -> None:
         if self.win:
             self.win.redraw()
-            time.sleep(0.01)
+            time.sleep(0.05)
     
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall = False
@@ -103,3 +108,34 @@ class Maze:
             for row in range(self.num_rows):
                 cell = self._cells[col][row]
                 cell.visited = False
+
+    def solve(self) -> bool:
+        return self._solve_r(0, 0)
+
+    def _solve_r(self, I: int, J: int) -> bool:
+        self._animate()
+        current_cell = self._cells[I][J]
+        current_cell.visited = True
+        if I + 1 == self.num_cols and J + 1 == self.num_rows:
+            return True
+        if current_cell.has_top_wall is False and I != 0 and J != 0 and self._cells[I][J - 1].visited is False:
+            current_cell.draw_move(self._cells[I][J - 1])
+            if self._solve_r(I, J - 1):
+                return True
+            current_cell.draw_move(self._cells[I][J - 1], True)
+        if current_cell.has_right_wall is False and self._cells[I + 1][J].visited is False:
+            current_cell.draw_move(self._cells[I + 1][J])
+            if self._solve_r(I + 1, J):
+                return True
+            current_cell.draw_move(self._cells[I + 1][J], True)
+        if current_cell.has_bottom_wall is False and self._cells[I][J + 1].visited is False:
+            current_cell.draw_move(self._cells[I][J + 1])
+            if self._solve_r(I, J + 1):
+                return True
+            current_cell.draw_move(self._cells[I][J + 1], True)
+        if current_cell.has_left_wall is False and self._cells[I - 1][J]:
+            current_cell.draw_move(self._cells[I - 1][J])
+            if self._solve_r(I - 1, J):
+                return True
+            current_cell.draw_move(self._cells[I - 1][J], True)
+        return False

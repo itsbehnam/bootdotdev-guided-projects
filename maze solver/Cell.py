@@ -46,14 +46,14 @@ class Cell:
         self._win.draw_line(left_line, color)
 
     def draw_move(self, to_cell: Self, undo: bool=False) -> None:
-        color = Colors.GRAY.value if undo else Colors.RED.value
+        color = Colors.RED.value if undo else Colors.GRAY.value
 
         if self._x1 and self._x2 and self._y1 and self._y2 and to_cell._x1 and to_cell._x2 and to_cell._y1 and to_cell._y2 and self._win:
-            src_center_x = int(self._x1 / self._x2)
-            src_center_y = int(self._y1 / self._y2)
+            src_center_x = (self._x1 + self._x2) // 2
+            src_center_y = (self._y1 + self._y2) // 2
 
-            dest_center_x = int(to_cell._x1 / to_cell._x2)
-            dest_center_y = int(to_cell._y1 / to_cell._y2)
+            dest_center_x = (to_cell._x1 + to_cell._x2) // 2
+            dest_center_y = (to_cell._y1 + to_cell._y2) // 2
 
             src_point = Point(src_center_x, src_center_y)
             dest_point = Point(dest_center_x, dest_center_y)
