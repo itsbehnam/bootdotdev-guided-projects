@@ -22,6 +22,11 @@ class Tests(unittest.TestCase):
             m1._cells[num_cols - 1][num_rows -1].has_bottom_wall,
             False
         )
+        self.assertTrue(
+            all(
+                m1._cells[col][row].visited is False for col in range(m1.num_cols) for row in range(m1.num_rows)
+            )
+        )
 
 if __name__ == "__main__":
     unittest.main()
